@@ -1,7 +1,6 @@
-#!/usr/bin/env python3
 import cv2
 import numpy as np
-import HandTrackingModule as htm
+import hand as htm
 import time
 import pyautogui as pg
 from ctypes import cast, POINTER  # pip install pycaw
@@ -14,12 +13,11 @@ wCam, hCam = 640, 480
 wScr, hScr = pg.size()
 # print(wScr,hScr)
 frameR = 100  # frame Reduction
-smoothening = 8
+smoothenes = 7
 ptime = 0
 plocX, plocY = 0, 0
 clocX, clocY = 0, 0
 #####################
-
 
 # Volume Intialization
 vol = 0
@@ -38,7 +36,7 @@ cap = cv2.VideoCapture(0)
 cap.set(3, wCam)
 cap.set(4, hCam)
 
-detector = htm.handDetector(maxHands=1)
+detector = htm.hand(maxHands=1)
 
 #
 
@@ -47,8 +45,8 @@ while True:
     #  Find hand Landmarks
     success, img = cap.read()
     # img = cv2.flip(img, 1)
-    img = detector.findHands(img)
-    lmList, bbox = detector.findPosition(img)
+    img = detector.Hands(img)
+    lmList, bbox = detector.fingersPosition(img)
 
     #  Get the tip of the index and middle fingers
     if len(lmList) != 0:
@@ -71,8 +69,8 @@ while True:
             y3 = np.interp(Iy, (frameR, hCam - frameR), (0, hScr))
 
             #  Smoothen Values
-            clocX = plocX + (x3 - plocX) / smoothening
-            clocY = plocY + (y3 - plocY) / smoothening
+            clocX = plocX + (x3 - plocX) / smoothenes
+            clocY = plocY + (y3 - plocY) / smoothenes
 
             #  Move Mouse
             pg.moveTo(wScr - clocX, clocY)
@@ -122,6 +120,16 @@ while True:
                     pg.scroll(20)
                 elif My < 250:
                     pg.scroll(-20)
+
+        # middle finger : fuck off
+        if fingers[0] == 0 and fingers[1] == 0 and fingers[2] == 1 and fingers[3] == 0:
+            cv2.putText(img,str("Fuck offf"),(70,250),cv2.FONT_HERSHEY_PLAIN, 6, (255, 0, 0), 5)
+        if fingers[0] == 1 and fingers[1] == 0 and fingers[2] == 1 and fingers[3] == 0:
+            cv2.putText(img,str("Fuck offf"),(70,250),cv2.FONT_HERSHEY_PLAIN, 6, (255, 0, 0), 5)
+
+        
+        
+        # print(fingers[0],fingers[1],fingers[2],fingers[3])
 
     #  Frame Rate
     ctime = time.time()

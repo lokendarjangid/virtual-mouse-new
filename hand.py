@@ -5,7 +5,7 @@ import math
 import numpy as np
 
 
-class handDetector():
+class hand():
     def __init__(self, mode=False, maxHands=2,complexity=1,detectionCon=0.5, trackCon=0.5):
         self.mode = mode
         self.maxHands = maxHands
@@ -20,7 +20,7 @@ class handDetector():
         self.mpDraw = mp.solutions.drawing_utils
         self.tipIds = [4, 8, 12, 16, 20]
 
-    def findHands(self, img, draw=True):
+    def Hands(self, img, draw=True):
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         self.results = self.hands.process(imgRGB)
         # print(results.multi_hand_landmarks)
@@ -33,7 +33,7 @@ class handDetector():
 
         return img
 
-    def findPosition(self, img, handNo=0, draw=True):
+    def fingersPosition(self, img, handNo=0, draw=True):
         xList = []
         yList = []
         bbox = []
@@ -94,30 +94,3 @@ class handDetector():
         length = math.hypot(x2 - x1, y2 - y1)
 
         return length, img, [x1, y1, x2, y2, cx, cy]
-
-
-def main():
-    pTime = 0
-    cTime = 0
-    cap = cv2.VideoCapture(0)
-    detector = handDetector()
-    while True:
-        success, img = cap.read()
-        img = detector.findHands(img)
-        lmList, bbox = detector.findPosition(img)
-        if len(lmList) != 0:
-            print(lmList[4])
-
-        cTime = time.time()
-        fps = 1 / (cTime - pTime)
-        pTime = cTime
-
-        cv2.putText(img, str(int(fps)), (10, 70), cv2.FONT_HERSHEY_PLAIN, 3,
-                    (255, 0, 255), 3)
-
-        cv2.imshow("Image", img)
-        cv2.waitKey(1)
-
-
-if __name__ == "__main__":
-    main()
