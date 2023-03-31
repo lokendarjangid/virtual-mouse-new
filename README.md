@@ -1,8 +1,27 @@
 # virtual-mouse-new
 
-### Objective
-
-The objective of this project is to make an AI mouse which means virtual mouse. In this we don’t need actual mouse for our system we can use our hand for moving cursor on our system. Problem which we face over here that we need actual mouse to control our system or if we are sitting far from our computer than we have to go near computer/laptop to control it but instead of that we can use AI mouse to control system without even an actual mouse or if we sitting far from system there is no need to go near. We just have to run AI mouse program and sit back to control with our hand.
+This is a virtual mouse which can be controlled by hand gestures. It is made using python and opencv. It can be used to control the mouse pointer and also to perform left click and right click.
 
 ![hands images](https://github.com/lokendarjangid/virtual-mouse-new/blob/main/hand%20image.jpg?raw=true)
+
+## Requirements
+
+- Python 3.8 or above
+- OpenCV
+- Numpy
+- PyAutoGUI
+
+## How to use
+
+- Clone the repository
+- Run the `main.py` file
+- Make sure that the camera is on and the hand is in the frame
+- Use the following gestures to control the mouse pointer
+
+| Gesture | Action |
+| --- | --- |
+| Move Index Finger | Move the mouse pointer |
+| Touch Index and Middle Finger | Left click |
+| Increase or Decrease Distance b/w Index Finger and Thumb | Volume |
+| Touch Index, Middle and Ring Finger. Move hand Up and Down | Scroll page |
 
