@@ -14,7 +14,7 @@ This is a virtual mouse which can be controlled by hand gestures. It is made usi
 ## How to use
 
 - Clone the repository
-- Run ```pip install -r requirements.txt```
+- Run ```pip install -r requirements.txt``` in cmd
 - Run the `main.py` file
 - Make sure that the camera is on and the hand is in the frame
 - Use the following gestures to control the mouse pointer
