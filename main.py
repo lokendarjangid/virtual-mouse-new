@@ -19,15 +19,15 @@ plocX, plocY = 0, 0
 clocX, clocY = 0, 0
 #####################
 
-# Volume Intialization
+#Volume Intialization
 vol = 0
 volBar = 400
 devices = AudioUtilities.GetSpeakers()
 interface = devices.Activate(
     IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
 volume = cast(interface, POINTER(IAudioEndpointVolume))
-# volume.GetMute()
-# volume.GetMasterVolumeLevel()
+volume.GetMute()
+volume.GetMasterVolumeLevel()
 volRange = volume.GetVolumeRange()  # volume range (-65.25, 0.0)
 minVol = volRange[0]
 maxVol = volRange[1]
@@ -126,6 +126,10 @@ while True:
             cv2.putText(img,str("Fuck offf"),(70,250),cv2.FONT_HERSHEY_PLAIN, 6, (255, 0, 0), 5)
         if fingers[0] == 1 and fingers[1] == 0 and fingers[2] == 1 and fingers[3] == 0:
             cv2.putText(img,str("Fuck offf"),(70,250),cv2.FONT_HERSHEY_PLAIN, 6, (255, 0, 0), 5)
+        
+        # system
+        if fingers[0] == 1 and fingers[1] == 1 and fingers[2] == 0 and fingers[3] == 0 and fingers[4] == 1:
+            cv2.putText(img,str("systumm"),(70,250),cv2.FONT_HERSHEY_PLAIN, 6, (255, 0, 0), 5)
 
         
         
